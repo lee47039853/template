@@ -64,9 +64,12 @@
     }
     
     function fn_egov_update_teacherMstr(){
+		//일시적으로 주석처리
+		/*
         if (!validateTeacherMaster(document.teacherMaster)){
             return;
         }
+		*/
         
         if(confirm('<spring:message code="common.update.msg" />')){
             document.teacherMaster.action = "<c:url value='/portal/teacher/UpdateTeacherInf.do'/>";

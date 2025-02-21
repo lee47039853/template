@@ -64,9 +64,12 @@
     }
     
     function fn_egov_insert_teacherInf(){
+		//일시적으로 주석처리
+		/*
         if (!validateTeacherMaster(document.teacherMaster)){
             return;
         }
+		*/
         
         if(confirm('<spring:message code="common.regist.msg" />')){
             document.teacherMaster.action = "<c:url value='/portal/teacher/InsertTeacherInf.do'/>";
