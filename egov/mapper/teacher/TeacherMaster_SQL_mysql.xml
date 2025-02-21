@@ -80,7 +80,7 @@
 				AND A.DELETE_YN = 'N'		
 	</select>	
 	
-	<select id="selectTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMasterVO" resultMap="teacherMasterDetail">
+	<select id="selectTeacher" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMasterVO" resultMap="teacherMasterDetail">
 			SELECT 
 				A.SQ, A.ENC_TEACHER_NAME, A.CATEGORY_1, A.CATEGORY_2, A.CATEGORY_3, 
 				A.CATEGORY_ETC, A.MAJOR, A.BIRTH, A.SEX, A.ENC_EMAIL, 
@@ -96,7 +96,7 @@
 					AND A.SQ = #{sq}
 	</select>
 	
-	<update id="updateTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
+	<update id="updateTeacher" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
  		
 			UPDATE TB_TEACHER SET
 				ENC_TEACHER_NAME = #{encTeacherName},
@@ -145,7 +145,7 @@
  		
  	</update>
  	
- 	<insert id="insertTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
+ 	<insert id="insertTeacher" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
 			
 			INSERT INTO TB_TEACHER
 				(ENC_TEACHER_NAME, CATEGORY_1, CATEGORY_2, CATEGORY_3, CATEGORY_ETC, MAJOR, SEX, 
@@ -157,7 +157,7 @@
 			
 	</insert>
 	
-	<update id="deleteTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
+	<update id="deleteTeacher" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
  		
 			UPDATE TB_TEACHER SET 
 				DELETE_YN = 'Y',
