@@ -1,0 +1,50 @@
+-- 1작업 명령 --
+
+아래 'DDL'을 기반으로 SQL_Mapper, Master, MasterVO, Mapper, Serviceimpl, Service, Controller를 만들어줘.
+단 아래 Github에 정의한 'SQL_Mapper 패턴', 'Mapper 패턴', 'Master 패턴', 'MasterVO 패턴', 'DAO 패턴', 'Serviceimpl 패턴', 'Service 패턴', 'Controller를 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- SQL_Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/mapper/teacher/TeacherMaster_SQL_mysql.xml
+- Master 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/teacher/service/TeacherMaster.java
+- MasterVO 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/teacher/service/TeacherMasterVO.java
+- Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/teacher/service/impl/TeacherManageMapper.java
+- Serviceimpl 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/teacher/service/impl/TeacherManageServiceImpl.java
+- Service 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/teacher/service/TeacherManageService.java
+- Controller를 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/teacher/web/TeacherManageController.java
+
+그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+- SQL_Mapper 명칭 : SurveyMaster_SQL_mysql.xml
+- Mapper 멍칭 : kr.or.ifac.modules.portal.servey.service.impl.SurveyManageMapper
+- Master 명칭 : kr.or.ifac.modules.portal.servey.service.SurveyMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.servey.service.SurveyMasterVO
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.servey.service.impl.SurveyManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.servey.service.SurveyManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.servey.service.web.SurveyManageController.java
+
+- DDL -
+CREATE TABLE `TB_SURVEY` (
+  `SQ` int(11) NOT NULL AUTO_INCREMENT COMMENT '만족도_시퀀스',
+  `PAGE_URL` varchar(500) NOT NULL COMMENT '작성_페이지_URL',
+  `MENU_SN` char(14) NOT NULL COMMENT '메뉴_일련번호',
+  `RESPONSE_CD` varchar(10) NOT NULL COMMENT '만족도_응답_코드',
+  `RESPONSE_CN` text NOT NULL COMMENT '만족도_설문_내용',
+  `REGIST_IP` varchar(20) NOT NULL COMMENT '등록자 IP',
+  `REGIST_ID` varchar(50) DEFAULT NULL COMMENT '등록자_ID',
+  `REGIST_NM` varchar(50) DEFAULT NULL COMMENT '등록자_명',
+  `REGIST_DE` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록_일자',
+  PRIMARY KEY (`SQ`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='만족도 설문조사 테이블'
+
+
+-- 2작업 명령 --
+
+위에서 생성한 소스를 기반으로 List.jsp, Regist.jsp, Upt.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'List.jsp 패턴', 'Regist.jsp 패턴', 'Upt.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherList.jsp
+- Regist.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherRegist.jsp
+- Upt.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherUpt.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+- List.jsp 명칭 : PortalSurveyList.jsp
+- Regist.jsp 멍칭 : PortalSurveyRegist.jsp
+- Upt.jsp 명칭 : PortalSurveyUpt.jsp
