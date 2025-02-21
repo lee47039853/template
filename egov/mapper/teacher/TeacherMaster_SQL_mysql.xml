@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ifac.modules.portal.teacher.service.impl.TeacherManageMapper">
+
+
+	<resultMap id="teacherMasterList" type="kr.or.ifac.modules.portal.club.service.TeacherMasterVO">
+		<result property="sq" column="SQ"/>
+		<result property="encTeacherName" column="ENC_TEACHER_NAME"/>
+		<result property="category1" column="CATEGORY_1"/>
+		<result property="category2" column="CATEGORY_2"/>
+		<result property="category3" column="CATEGORY_3"/>
+		<result property="sex" column="SEX"/>
+		<result property="encPhone" column="ENC_PHONE"/>
+		<result property="regDate" column="REG_DATE"/>
+		<result property="deleteYn" column="DELETE_YN"/>
+	</resultMap>
+	
+	<resultMap id="teacherMasterDetail" type="kr.or.ifac.modules.portal.club.service.TeacherMasterVO">
+		<result property="sq" column="SQ"/>
+		<result property="encTeacherName" column="ENC_TEACHER_NAME"/>
+		<result property="category1" column="CATEGORY_1"/>
+		<result property="category2" column="CATEGORY_2"/>
+		<result property="category3" column="CATEGORY_3"/>
+		<result property="categoryEtc" column="CATEGORY_ETC"/>
+		<result property="major" column="MAJOR"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="sex" column="SEX"/> 
+		<result property="encEmail" column="ENC_EMAIL"/>
+		<result property="encPhone" column="ENC_PHONE"/>
+		<result property="encTelno" column="ENC_TELNO"/>
+		<result property="gungu" column="GUNGU"/>
+		<result property="encAddressDetail" column="ENC_ADDRESS_DETAIL"/>
+		<result property="encSns" column="ENC_SNS"/>
+		<result property="introduce" column="INTRODUCE"/>
+		<result property="profileOriginName" column="PROFILE_ORIGIN_NAME"/>
+		<result property="profileSaveName" column="PROFILE_SAVE_NAME"/>
+		<result property="profileThumbName" column="PROFILE_THUMB_NAME"/>
+		<result property="phoneChk" column="PHONE_CHK"/>
+		<result property="emailChk" column="EMAIL_CHK"/>
+		<result property="telChk" column="TEL_CHK"/>
+		<result property="addressChk" column="ADDRESS_CHK"/>
+		<result property="snsChk" column="SNS_CHK"/>
+		<result property="profileChk" column="PROFILE_CHK"/>
+		<result property="status" column="STATUS"/>
+		<result property="regDate" column="REG_DATE"/>
+		<result property="regId" column="REG_ID"/>
+		<result property="updDate" column="UPD_DATE"/>
+		<result property="updId" column="UPD_ID"/>
+		<result property="deleteYn" column="DELETE_YN"/>
+		<result property="mSq" column="M_SQ"/>
+	</resultMap>
+	
+	<select id="selectTeacherList" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMasterVO" resultMap="teacherMasterList">
+		
+			SELECT 
+				A.SQ, A.ENC_TEACHER_NAME, A.CATEGORY_1,
+				A.CATEGORY_2, A.CATEGORY_3, A.SEX, 
+				A.ENC_PHONE, A.REG_DATE, A.DELETE_YN
+			FROM
+				TB_TEACHER A
+			WHERE 1=1	
+				AND A.DELETE_YN = 'N'
+			<if test="searchCnd == 1">
+				AND A.ENC_TEACHER_NAME LIKE CONCAT ('%', #{searchWrd},'%') 		
+			</if>		
+			ORDER BY 
+				A.REG_DATE DESC 
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+						
+	</select>	
+	
+	<select id="selectTeacherListCnt" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMasterVO" resultType="java.lang.Integer">
+		
+			SELECT 
+				COUNT(A.SQ)
+			FROM
+				TB_TEACHER A
+			WHERE 1=1	
+				AND A.DELETE_YN = 'N'		
+	</select>	
+	
+	<select id="selectTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMasterVO" resultMap="teacherMasterDetail">
+			SELECT 
+				A.SQ, A.ENC_TEACHER_NAME, A.CATEGORY_1, A.CATEGORY_2, A.CATEGORY_3, 
+				A.CATEGORY_ETC, A.MAJOR, A.BIRTH, A.SEX, A.ENC_EMAIL, 
+				A.ENC_PHONE, A.ENC_TELNO, A.GUNGU, A.ENC_ADDRESS_DETAIL, A.ENC_SNS, 
+				A.INTRODUCE, A.PROFILE_ORIGIN_NAME, A.PROFILE_SAVE_NAME, A.PROFILE_THUMB_NAME, A.PHONE_CHK, 
+				A.EMAIL_CHK, A.TEL_CHK, A.ADDRESS_CHK, A.SNS_CHK, A.PROFILE_CHK, 
+				A.STATUS, A.REG_DATE, A.REG_ID, A.UPD_DATE, A.UPD_ID, 
+				A.DELETE_YN, A.M_SQ 
+				FROM 
+					TB_TEACHER A
+				WHERE 1=1	
+					AND A.DELETE_YN = 'N'
+					AND A.SQ = #{sq}
+	</select>
+	
+	<update id="updateTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
+ 		
+			UPDATE TB_TEACHER SET
+				ENC_TEACHER_NAME = #{encTeacherName},
+				CATEGORY_1 = #{category1},
+				<if test="category2 != null and category2 != ''">
+					CATEGORY_2 = #{category2},
+				</if>
+				<if test="category3 != null and category3 != ''">
+					CATEGORY_3 = #{category3},
+				</if>
+				<if test="categoryEtc != null and categoryEtc != ''">
+					CATEGORY_ETC = #{categoryEtc},
+				</if>
+				MAJOR = #{major},
+				<if test="birth != null and birth != ''">
+					BIRTH = #{birth},
+				</if>		
+				SEX = #{sex},
+				ENC_EMAIL = #{encEmail},
+				<if test="emailChk != null and emailChk != ''">
+					EMAIL_CHK = #{emailChk},
+				</if>
+				<if test="encPhone != null and encPhone != ''">
+					ENC_PHONE = #{encPhone},
+				</if>
+				<if test="phoneChk != null and phoneChk != ''">
+					PHONE_CHK = #{phoneChk},
+				</if>
+				<if test="gungu != null and gungu != ''">
+					GUNGU = #{gungu},
+				</if>
+				<if test="encAddressDetail != null and encAddressDetail != ''">
+					ENC_ADDRESS_DETAIL = #{encAddressDetail},
+				</if>
+				INTRODUCE = #{introduce},
+				<if test="profileOriginName != null and profileOriginName != ''">
+					PROFILE_ORIGIN_NAME = #{profileOriginName},
+				</if>
+				<if test="profileChk != null and profileChk != ''">
+					PROFILE_CHK = #{profileChk},
+				</if>
+				STATUS = #{status},
+				UPD_DATE = SYSDATE(),
+				UPD_ID = #{updId}
+			WHERE SQ = #{sq}
+ 		
+ 	</update>
+ 	
+ 	<insert id="insertTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
+			
+			INSERT INTO TB_TEACHER
+				(ENC_TEACHER_NAME, CATEGORY_1, CATEGORY_2, CATEGORY_3, CATEGORY_ETC, MAJOR, SEX, 
+			    INTRODUCE, REG_DATE, REG_ID, DELETE_YN
+			) VALUES (
+				 #{encTeacherName}, #{category1}, #{category2}, #{category3}, #{categoryEtc}, #{major}, #{sex},
+				 #{introduce}, SYSDATE(), #{regId}, #{deleteYn}
+			)
+			
+	</insert>
+	
+	<update id="deleteTeacherInf" parameterType="kr.or.ifac.modules.portal.club.service.TeacherMaster">
+ 		
+			UPDATE TB_TEACHER SET 
+				DELETE_YN = 'Y',
+				UPD_ID = #{updId},
+				UPD_DATE = SYSDATE()
+			WHERE SQ = #{sq}
+ 		
+ 	</update>
+
+</mapper>
