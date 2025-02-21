@@ -24,7 +24,7 @@ public class TeacherManageServiceImpl extends EgovAbstractServiceImpl implements
 	@Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
 	
-	@Resource(name = "TeacherManageDAO")
+	@Resource(name = "teacherManageMapper")
 	private TeacherManageMapper teacherManageDAO;
 	
 	@Override

@@ -13,12 +13,12 @@
 
 그리고, 생성할 소스는 아래 '명칭'을 준용해줘
 - SQL_Mapper 명칭 : SurveyMaster_SQL_mysql.xml
-- Mapper 멍칭 : kr.or.ifac.modules.portal.servey.service.impl.SurveyManageMapper
-- Master 명칭 : kr.or.ifac.modules.portal.servey.service.SurveyMaster
-- MasterVO 명칭 : kr.or.ifac.modules.portal.servey.service.SurveyMasterVO
-- Serviceimpl 명칭 : kr.or.ifac.modules.portal.servey.service.impl.SurveyManageServiceImpl.java
-- Service 명칭 : kr.or.ifac.modules.portal.servey.service.SurveyManageService.java
-- Controller 명칭 : kr.or.ifac.modules.portal.servey.service.web.SurveyManageController.java
+- Mapper 멍칭 : kr.or.ifac.modules.portal.survey.service.impl.SurveyManageMapper
+- Master 명칭 : kr.or.ifac.modules.portal.survey.service.SurveyMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.survey.service.SurveyMasterVO
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.survey.service.impl.SurveyManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.survey.service.SurveyManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.survey.service.web.SurveyManageController.java
 
 - DDL -
 CREATE TABLE `TB_SURVEY` (
@@ -35,16 +35,59 @@ CREATE TABLE `TB_SURVEY` (
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='만족도 설문조사 테이블'
 
 
+
+
+
 -- 2작업 명령 --
 
-위에서 생성한 소스를 기반으로 List.jsp, Regist.jsp, Upt.jsp 화면을 만들어줘.
+위에서 생성한 java 소스를 기반으로 List.jsp, Regist.jsp, Upt.jsp 화면을 만들어줘.
 단 아래 Github에 정의한 'List.jsp 패턴', 'Regist.jsp 패턴', 'Upt.jsp 패턴'과 유사한 모습으로 만들어줘.
 각 패턴의 Github 위치는 아래와 같음.
 - List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherList.jsp
 - Regist.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherRegist.jsp
 - Upt.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherUpt.jsp
 
-그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성하고 명칭과 내용을 확인할수 있또록 해줘
 - List.jsp 명칭 : PortalSurveyList.jsp
 - Regist.jsp 멍칭 : PortalSurveyRegist.jsp
 - Upt.jsp 명칭 : PortalSurveyUpt.jsp
+
+
+
+
+
+-- 2차 명령이 멈출 경우 JSP는 각각 실행 --
+-- 3작업 명령 : List.jsp --
+
+위에서 생성한 java 소스를 기반으로 List.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'List.jsp 패턴' 과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherList.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성해줘
+- List.jsp 명칭 : PortalSurveyList.jsp
+
+-- 3작업 명령 Regist.jsp --
+
+위에서 생성한 java 소스를 기반으로 Regist.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'Regist.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- Regist.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherRegist.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성하고 명칭과 내용을 확인할수 있또록 해줘
+- Regist.jsp 멍칭 : PortalSurveyRegist.jsp
+
+
+위에서 생성한 java 소스를 기반으로 Upt.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'Upt.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+
+- Upt.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/teacher/PortalTeacherUpt.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성하고 명칭과 내용을 확인할수 있또록 해줘
+- Upt.jsp 명칭 : PortalSurveyUpt.jsp
+
+
+
+
+
