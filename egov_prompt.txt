@@ -78,6 +78,8 @@ CREATE TABLE `TB_SURVEY` (
 - Regist.jsp 멍칭 : PortalSurveyRegist.jsp
 
 
+-- 3작업 명령 Upt.jsp --
+
 위에서 생성한 java 소스를 기반으로 Upt.jsp 화면을 만들어줘.
 단 아래 Github에 정의한 'Upt.jsp 패턴'과 유사한 모습으로 만들어줘.
 각 패턴의 Github 위치는 아래와 같음.
