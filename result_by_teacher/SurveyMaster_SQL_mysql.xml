@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ifac.modules.portal.survey.service.impl.SurveyManageMapper">
+
+    <resultMap id="surveyMasterList" type="kr.or.ifac.modules.portal.survey.service.SurveyMasterVO">
+        <result property="sq" column="SQ"/>
+        <result property="pageUrl" column="PAGE_URL"/>
+        <result property="menuSn" column="MENU_SN"/>
+        <result property="responseCd" column="RESPONSE_CD"/>
+        <result property="responseCn" column="RESPONSE_CN"/>
+        <result property="registIp" column="REGIST_IP"/>
+        <result property="registId" column="REGIST_ID"/>
+        <result property="registNm" column="REGIST_NM"/>
+        <result property="registDe" column="REGIST_DE"/>
+    </resultMap>
+
+    <resultMap id="surveyMasterDetail" type="kr.or.ifac.modules.portal.survey.service.SurveyMasterVO">
+        <result property="sq" column="SQ"/>
+        <result property="pageUrl" column="PAGE_URL"/>
+        <result property="menuSn" column="MENU_SN"/>
+        <result property="responseCd" column="RESPONSE_CD"/>
+        <result property="responseCn" column="RESPONSE_CN"/>
+        <result property="registIp" column="REGIST_IP"/>
+        <result property="registId" column="REGIST_ID"/>
+        <result property="registNm" column="REGIST_NM"/>
+        <result property="registDe" column="REGIST_DE"/>
+    </resultMap>
+
+    <select id="selectSurveyList" parameterType="kr.or.ifac.modules.portal.survey.service.SurveyMasterVO" resultMap="surveyMasterList">
+        SELECT 
+            SQ, PAGE_URL, MENU_SN, RESPONSE_CD, RESPONSE_CN, REGIST_IP, REGIST_ID, REGIST_NM, REGIST_DE
+        FROM
+            TB_SURVEY
+        WHERE 1=1
+            <if test="searchCnd == 1">
+                AND PAGE_URL LIKE CONCAT ('%', #{searchWrd},'%')
+            </if>
+        ORDER BY 
+            REGIST_DE DESC
+        LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+    </select>
+
+    <select id="selectSurveyListCnt" parameterType="kr.or.ifac.modules.portal.survey.service.SurveyMasterVO" resultType="java.lang.Integer">
+        SELECT 
+            COUNT(SQ)
+        FROM
+            TB_SURVEY
+        WHERE 1=1
+    </select>
+
+    <select id="selectSurvey" parameterType="kr.or.ifac.modules.portal.survey.service.SurveyMasterVO" resultMap="surveyMasterDetail">
+        SELECT 
+            SQ, PAGE_URL, MENU_SN, RESPONSE_CD, RESPONSE_CN, REGIST_IP, REGIST_ID, REGIST_NM, REGIST_DE
+        FROM 
+            TB_SURVEY
+        WHERE 1=1
+            AND SQ = #{sq}
+    </select>
+
+    <update id="updateSurvey" parameterType="kr.or.ifac.modules.portal.survey.service.SurveyMaster">
+        UPDATE TB_SURVEY SET
+            PAGE_URL = #{pageUrl},
+            MENU_SN = #{menuSn},
+            RESPONSE_CD = #{responseCd},
+            RESPONSE_CN = #{responseCn},
+            REGIST_IP = #{registIp},
+            REGIST_ID = #{registId},
+            REGIST_NM = #{registNm},
+            REGIST_DE = #{registDe}
+        WHERE SQ = #{sq}
+    </update>
+
+    <insert id="insertSurvey" parameterType="kr.or.ifac.modules.portal.survey.service.SurveyMaster">
+        INSERT INTO TB_SURVEY
+            (PAGE_URL, MENU_SN, RESPONSE_CD, RESPONSE_CN, REGIST_IP, REGIST_ID, REGIST_NM, REGIST_DE)
+        VALUES (
+            #{pageUrl}, #{menuSn}, #{responseCd}, #{responseCn}, #{registIp}, #{registId}, #{registNm}, #{registDe}
+        )
+    </insert>
+
+    <update id="deleteSurvey" parameterType="kr.or.ifac.modules.portal.survey.service.SurveyMaster">
+        UPDATE TB_SURVEY SET 
+            RESPONSE_CN = 'Deleted'
+        WHERE SQ = #{sq}
+    </update>
+
+</mapper>
