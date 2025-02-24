@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ifac.modules.portal.club.service.impl.ClubManageMapper">
+	
+	<select id="selectClubList" parameterType="kr.or.ifac.modules.portal.club.service.ClubMasterVO" resultType="kr.or.ifac.modules.portal.club.service.ClubMasterVO">
+		
+			SELECT 
+				A.SQ, A.CLUB_NAME, A.ACTIVITY_AREA_SI,
+				A.ACTIVITY_AREA_GUNGU, A.CLUB_GENRE, A.MEMBER_COUNT, 
+				A.TAG, A.STATUS, DATE_FORMAT(A.REG_DATE, '%Y-%m-%d') AS REG_DATE, A.DELETE_YN
+			FROM
+				TB_CLUB A
+			 WHERE 1=1
+			 	AND A.DELETE_YN = 'N'	
+	        <if test='sbscrbSttus != "0"'>
+	            AND A.STATUS = #{sbscrbSttus}
+	        </if>
+	        <if test='searchCondition == "0"'>
+	            AND A.CLUB_NAME LIKE '%' #{searchKeyword} '%'
+	        </if>
+	        <if test='searchCondition == "1"'>
+	            AND A.TAG LIKE '%' #{searchKeyword} '%'
+	        </if>
+			ORDER BY 
+				A.REG_DATE DESC 
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+						
+	</select>	
+	
+	<select id="selectClubListCnt" parameterType="kr.or.ifac.modules.portal.club.service.ClubMasterVO" resultType="int">
+		
+			SELECT COUNT(1) totcnt
+            FROM(
+            SELECT
+                SQ, CLUB_NAME, ACTIVITY_AREA_SI,
+				ACTIVITY_AREA_GUNGU, CLUB_GENRE, MEMBER_COUNT, 
+				TAG, STATUS, DATE_FORMAT(REG_DATE, '%Y-%m-%d') AS REG_DATE, DELETE_YN
+            FROM    
+            	TB_CLUB
+            ) A	
+			WHERE 1=1
+			 	AND A.DELETE_YN = 'N'	
+	        <if test='sbscrbSttus != "0"'>
+	            AND A.STATUS LIKE  #{sbscrbSttus}
+	        </if>
+	        <if test='searchCondition == "0"'>
+	            AND A.CLUB_NAME LIKE '%' #{searchKeyword} '%'
+	        </if>
+	        <if test='searchCondition == "1"'>
+	            AND A.TAG LIKE '%' #{searchKeyword} '%'
+	        </if>	
+	</select>	
+	
+	<select id="selectClub" resultType="kr.or.ifac.modules.portal.club.service.ClubMasterVO">
+        
+            SELECT 
+            	SQ, CLUB_NAME, CLUB_NAME, ACTIVITY_AREA_SI, ACTIVITY_AREA_SI, ACTIVITY_AREA_GUNGU,
+            	ACTIVITY_AREA_GUNGU, CLUB_GENRE, CLUB_GENRE, PHONE, PHONE, MEMBER_COUNT, 
+            	MEMBER_COUNT, SHORT_INTRODUCE, SHORT_INTRODUCE, LONG_INTRODUCE, LONG_INTRODUCE, 
+            	DETAIL_INTRO, MAIN_IMG_ORIGIN_NAME, MAIN_IMG_SAVE_NAME, MAIN_IMG_THUMB_NAME,
+                START_DATE, COMMUNITY_URL, TAG, STATUS, INTERMEDIARY, MEETING_PLACE, 
+                DATE_FORMAT(REG_DATE, '%Y-%m-%d') AS REG_DATE, REG_ID, DELETE_YN,
+                DATE_FORMAT(UPD_DATE, '%Y-%m-%d') AS UPD_DATE, UPD_ID
+        	FROM 
+        		TB_CLUB
+            WHERE 
+            	SQ=#{sq}
+    </select>
+    
+    <delete id="deleteClub">
+            DELETE FROM TB_CLUB 
+            WHERE SQ=#{sq}
+    </delete>
+    
+    <update id="updateClub" parameterType="kr.or.ifac.modules.portal.club.service.ClubMasterVO">
+            UPDATE 
+            	TB_CLUB 
+            SET 
+                CLUB_NAME             = #{clubName}  			,
+                ACTIVITY_AREA_GUNGU   = #{activityAreaGungu}    ,
+                CLUB_GENRE            = #{clubGenre}    		,
+                MEMBER_COUNT          = #{memberCount}   		,
+                SHORT_INTRODUCE       = #{shortIntroduce}       ,
+                LONG_INTRODUCE        = #{longIntroduce}        ,
+                DETAIL_INTRO          = #{detailIntro}      	,
+                MAIN_IMG_ORIGIN_NAME  = #{mainImgOriginName}    ,
+ 				MAIN_IMG_SAVE_NAME    = #{mainImgSaveName} 		,
+ 				MAIN_IMG_THUMB_NAME   = #{mainImgThumbName}     ,
+ 				START_DATE            = #{startDate} 			,
+ 				COMMUNITY_URL         = #{communityUrl} 		,
+ 				TAG             	  = #{tag} 					,
+ 				STATUS             	  = #{status} 				,
+ 				INTERMEDIARY          = #{intermediary} 		,        
+ 				MEETING_PLACE         = #{meetingPlace} 		,        
+ 				UPD_ID             	  = #{updId} 				,        
+ 				UPD_DATE              = NOW() 		       
+            WHERE 
+            	SQ = #{sq}
+    </update>
+    
+    <insert id="insertClub" parameterType="kr.or.ifac.modules.portal.club.service.ClubMasterVO">
+        
+            INSERT INTO TB_CLUB 
+                (   
+                	CLUB_NAME			 , 
+                	ACTIVITY_AREA_SI	 , 
+                	ACTIVITY_AREA_GUNGU  , 
+                	CLUB_GENRE		 	 , 
+                	PHONE				 , 
+                	MEMBER_COUNT		 , 
+                	SHORT_INTRODUCE	 	 , 
+                	LONG_INTRODUCE		 , 
+                	DETAIL_INTRO		 , 
+                	MAIN_IMG_ORIGIN_NAME , 
+                	MAIN_IMG_SAVE_NAME	 , 
+                	MAIN_IMG_THUMB_NAME  , 
+                	START_DATE			 , 
+                	COMMUNITY_URL		 , 
+                	TAG					 , 
+                	STATUS				 , 
+                	INTERMEDIARY		 , 
+                	MEETING_PLACE		 , 
+                	REG_DATE			 , 
+                	REG_ID				 , 
+                	UPD_DATE			 , 
+                	UPD_ID				 , 
+                	DELETE_YN 			 )
+            VALUES (
+                   #{clubName}           ,
+                   #{activityAreaSi}     ,
+                   #{activityAreaGungu}  ,
+                   #{clubGenre}          ,
+                   #{phone}              ,
+                   #{memberCount}        ,
+                   #{shortIntroduce}     ,
+                   #{longIntroduce}      ,
+                   #{detailIntro}        ,
+                   #{mainImgOriginName}  ,
+                   #{mainImgSaveName}    ,
+                   #{mainImgThumbName}   ,
+                   #{startDate}          ,
+                   #{communityUrl}       ,
+                   #{tag}                ,
+                   #{status}             ,
+                   #{intermediary}       ,
+                   #{meetingPlace}       ,
+                   NOW()                 ,
+                   #{regId}              ,
+                   NULL                  ,
+                   NULL                  ,
+                   'N'                   )
+    </insert>
+ 
+</mapper>
