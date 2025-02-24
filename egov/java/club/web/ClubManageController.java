@@ -23,6 +23,7 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
 import kr.or.ifac.modules.portal.club.service.ClubManageService;
 import kr.or.ifac.modules.portal.club.service.ClubMasterVO;
+import kr.or.ifac.utils.cmm.StringSanitizer;
 
 /**
  * 웹포털 동아리 관리를 위한 컨트롤러 클래스
@@ -98,8 +99,10 @@ public class ClubManageController {
         if (!isAuthenticated(model)) return "uat/uia/EgovLoginUsr";
 
         LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-
         clubMasterVO.setRegId(user.getId());
+        
+        // 모든 문자열 필드에 대해 특수문자 변환 자동 적용
+        StringSanitizer.sanitizeForDatabase(clubMasterVO);
         clubManageService.insertClub(clubMasterVO);
         model.addAttribute("resultMsg", "success.common.insert");
         return "forward:/portal/club/SelectClubList.do";
@@ -133,6 +136,8 @@ public class ClubManageController {
         LoginVO user = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
         clubMasterVO.setUpdId(user.getId());
         
+        // 모든 문자열 필드에 대해 특수문자 변환 자동 적용
+        StringSanitizer.sanitizeForDatabase(clubMasterVO);
         clubManageService.updateClub(clubMasterVO);
         model.addAttribute("resultMsg", "success.common.update");
         return "forward:/portal/club/SelectClubList.do";

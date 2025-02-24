@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+
+    <formset>
+
+        <form name="surveyMasterVO"> 
+            <!-- 페이지 URL -->
+            <field property="pageUrl" depends="required, maxlength">
+                <arg0 key="페이지 URL" resource="false"/>
+                <arg1 key="500" resource="false"/>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>500</var-value>
+                </var>
+            </field>
+
+            <!-- 메뉴 일련번호 -->
+            <field property="menuSn" depends="required, maxlength">
+                <arg0 key="메뉴 일련번호" resource="false"/>
+                <arg1 key="14" resource="false"/>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>14</var-value>
+                </var>
+            </field>
+
+            <!-- 응답 코드
+            <field property="responseCd" depends="required, maxlength">
+                <arg0 key="응답 코드" resource="false"/>
+                <arg1 key="10" resource="false"/>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>10</var-value>
+                </var>
+            </field>
+             -->
+
+            <!-- 설문 내용 -->
+            <field property="responseCn" depends="required">
+                <arg0 key="설문 내용" resource="false"/>
+            </field>
+
+            <!-- 등록자 IP -->
+            <field property="registIp" depends="required, maxlength">
+                <arg0 key="등록자 IP" resource="false"/>
+                <arg1 key="20" resource="false"/>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>20</var-value>
+                </var>
+            </field>
+
+            <!-- 등록자 ID -->
+            <field property="registId" depends="maxlength">
+                <arg0 key="등록자 ID" resource="false"/>
+                <arg1 key="50" resource="false"/>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>50</var-value>
+                </var>
+            </field>
+
+            <!-- 등록자 명 -->
+            <field property="registNm" depends="maxlength">
+                <arg0 key="등록자 명" resource="false"/>
+                <arg1 key="50" resource="false"/>
+                <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>50</var-value>
+                </var>
+            </field>
+
+        </form>
+        
+    </formset>
+
+</form-validation>
