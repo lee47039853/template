@@ -1,0 +1,95 @@
+-- 1작업 명령 --
+
+아래 'DDL'을 기반으로 SQL_Mapper, Master, MasterVO, Mapper, Serviceimpl, Service, Controller, Validator 를 만들어줘.
+단 아래 Github에 정의한 'SQL_Mapper 패턴', 'Mapper 패턴', 'Master 패턴', 'MasterVO 패턴', 'DAO 패턴', 'Serviceimpl 패턴', 'Service 패턴', 'Controller를 패턴', 'Validator 패턴' 과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- SQL_Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/mapper/survey/SurveyMaster_SQL_mysql.xml
+- Master 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/SurveyMaster.java
+- MasterVO 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/SurveyMasterVO.java
+- Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/impl/SurveyManageMapper.java
+- Serviceimpl 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/impl/SurveyManageServiceImpl.java
+- Service 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/SurveyManageService.java
+- Controller 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/web/SurveyManageController.java
+- Validator 패턴 : https://github.com/lee47039853/template/blob/main/egov/validator/survey/PortalSurveyManage.xml
+
+
+그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+- SQL_Mapper 명칭 : ClubMaster_SQL_mysql.xml
+- Mapper 멍칭 : kr.or.ifac.modules.portal.club.service.impl.ClubManageMapper
+- Master 명칭 : kr.or.ifac.modules.portal.club.service.ClubMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.club.service.ClubMasterVO
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.club.service.impl.ClubManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.club.service.ClubManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.club.service.web.ClubManageController.java
+- Validator 명칭 : PortalClubManage.xml
+
+그리고  SQL_Mapper, Validator 생성시 아래 조건이 반영되어야 함
+- SQL_Mapper : '등록날짜', '수정날짜' 는 현재날자를 입력되어야 함.
+- Validator : '동아리 소개(에디터)', '등록날짜', '등록자', '수정날짜', '수정자' 항목은 제외되어야 함.
+
+
+- DDL -
+CREATE TABLE `TB_CLUB` (
+  `SQ` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '연번',
+  `CLUB_NAME` varchar(64) NOT NULL COMMENT '동아리 이름',
+  `ACTIVITY_AREA_SI` varchar(20) DEFAULT NULL COMMENT '활동지역(시)',
+  `ACTIVITY_AREA_GUNGU` varchar(120) NOT NULL COMMENT '활동지역(군/구)',
+  `CLUB_GENRE` varchar(100) NOT NULL COMMENT '동아리 장르',
+  `PHONE` varchar(13) DEFAULT NULL COMMENT '대표 연락처',
+  `MEMBER_COUNT` varchar(10) NOT NULL COMMENT '활동인원',
+  `SHORT_INTRODUCE` varchar(300) DEFAULT NULL,
+  `LONG_INTRODUCE` text DEFAULT NULL COMMENT '동아리 소개(에디터)',
+  `DETAIL_INTRO` varchar(1000) NOT NULL COMMENT '상세 소개',
+  `MAIN_IMG_ORIGIN_NAME` varchar(100) DEFAULT NULL COMMENT '대표이미지 원본이름',
+  `MAIN_IMG_SAVE_NAME` varchar(100) DEFAULT NULL COMMENT '대표이미지 저장이름',
+  `MAIN_IMG_THUMB_NAME` varchar(100) DEFAULT NULL COMMENT '대표이미지 썸네일 이름',
+  `START_DATE` varchar(10) NOT NULL COMMENT '활동시작일',
+  `COMMUNITY_URL` varchar(300) DEFAULT NULL COMMENT '커뮤니티 URL(혹은 SNS)',
+  `TAG` varchar(100) DEFAULT NULL COMMENT '태그',
+  `STATUS` enum('Wait','Accept','Deny') NOT NULL COMMENT '상태',
+  `INTERMEDIARY` varchar(20) DEFAULT NULL COMMENT '매개자',
+  `MEETING_PLACE` varchar(50) DEFAULT NULL COMMENT '모임장소',
+  `REG_DATE` datetime NOT NULL COMMENT '등록날짜',
+  `REG_ID` varchar(64) NOT NULL COMMENT '등록자',
+  `UPD_DATE` datetime DEFAULT NULL COMMENT '수정날짜',
+  `UPD_ID` varchar(64) DEFAULT NULL COMMENT '수정자',
+  `DELETE_YN` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '삭제여부',
+  PRIMARY KEY (`SQ`)
+) ENGINE=InnoDB AUTO_INCREMENT=1416 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='동아리'
+
+
+
+- 2차 명령 -
+
+1.위에서 생성한 java 소스를 기반으로 List.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'List.jsp 패턴' 과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveyList.jsp
+그리고, 아래의 검색조건과 검색결과가 반뎡되어야햠.
+- 검색조건 순서 : '동아리 이름', '활동지역(시)'
+- 검색결과 순서 : '번호', 체크박스, '동아리 이름', '활동지역(시)', '동아리 장르', '활동인원', '활동시작일'
+
+
+2.위에서 생성한 java 소스를 기반으로 Insert.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'Regist.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- Regist.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveyInsert.jsp
+그리고 야래의 CKEDITOR 적용항목과 임력제외항목이 반영되어야함.
+- CKEDITOR 적용항목 : '동아리 소개(에디터)'
+- 입력제외항목 : '등록날짜', '등록자', '수정날짜', '수정자'
+
+
+
+3.위에서 생성한 java 소스를 기반으로 Updt.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'Upt.jsp 패턴'과 유사한 모습으로 만들어줘.
+특히, CKEditor 는 longIntroduce 항목에 적용해줘.
+각 패턴의 Github 위치는 아래와 같음.
+- Insert.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveySelectUpdt.jsp
+그리고 야래의 CKEDITOR 적용항목과 수정제외항목이 반영되어야함.
+- CKEDITOR 적용항목 : '동아리 소개(에디터)'
+- 수정제외항목 : '등록날짜', '등록자', '수정날짜', '수정자'
+
+
+
+
+

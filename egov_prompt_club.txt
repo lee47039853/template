@@ -1,0 +1,103 @@
+-- 1작업 명령 --
+
+아래 'DDL'을 기반으로 SQL_Mapper, Master, MasterVO, Mapper, Serviceimpl, Service, Controller를 만들어줘.
+단 아래 Github에 정의한 'SQL_Mapper 패턴', 'Mapper 패턴', 'Master 패턴', 'MasterVO 패턴', 'DAO 패턴', 'Serviceimpl 패턴', 'Service 패턴', 'Controller를 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- SQL_Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/mapper/club/ClubMaster_SQL_mysql.xml
+- Master 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/club/service/ClubMaster.java
+- MasterVO 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/club/service/ClubMasterVO.java
+- Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/club/service/impl/ClubManageMapper.java
+- Serviceimpl 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/club/service/impl/ClubManageServiceImpl.java
+- Service 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/club/service/ClubManageService.java
+- Controller를 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/club/web/ClubManageController.java
+
+그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+- SQL_Mapper 명칭 : SurveyMaster_SQL_mysql.xml
+- Mapper 멍칭 : kr.or.ifac.modules.portal.survey.service.impl.SurveyManageMapper
+- Master 명칭 : kr.or.ifac.modules.portal.survey.service.SurveyMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.survey.service.SurveyMasterVO
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.survey.service.impl.SurveyManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.survey.service.SurveyManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.survey.service.web.SurveyManageController.java
+
+- DDL -
+CREATE TABLE `TB_SURVEY` (
+  `SQ` int(11) NOT NULL AUTO_INCREMENT COMMENT '만족도_시퀀스',
+  `PAGE_URL` varchar(500) NOT NULL COMMENT '작성_페이지_URL',
+  `MENU_SN` char(14) NOT NULL COMMENT '메뉴_일련번호',
+  `RESPONSE_CD` varchar(10) NOT NULL COMMENT '만족도_응답_코드',
+  `RESPONSE_CN` text NOT NULL COMMENT '만족도_설문_내용',
+  `REGIST_IP` varchar(20) NOT NULL COMMENT '등록자 IP',
+  `REGIST_ID` varchar(50) DEFAULT NULL COMMENT '등록자_ID',
+  `REGIST_NM` varchar(50) DEFAULT NULL COMMENT '등록자_명',
+  `REGIST_DE` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록_일자',
+  PRIMARY KEY (`SQ`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='만족도 설문조사 테이블'
+
+
+
+
+
+-- 2작업 명령 --
+
+아래 'DDL'을 기반으로 Validator를 만들어줘.
+단 아래 Github에 정의한 'Validator 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+
+- Validator 패턴 : https://github.com/lee47039853/template/blob/main/egov/validator/club/PortalClubManage.xml
+
+- DDL -
+CREATE TABLE `TB_SURVEY` (
+  `SQ` int(11) NOT NULL AUTO_INCREMENT COMMENT '만족도_시퀀스',
+  `PAGE_URL` varchar(500) NOT NULL COMMENT '작성_페이지_URL',
+  `MENU_SN` char(14) NOT NULL COMMENT '메뉴_일련번호',
+  `RESPONSE_CD` varchar(10) NOT NULL COMMENT '만족도_응답_코드',
+  `RESPONSE_CN` text NOT NULL COMMENT '만족도_설문_내용',
+  `REGIST_IP` varchar(20) NOT NULL COMMENT '등록자 IP',
+  `REGIST_ID` varchar(50) DEFAULT NULL COMMENT '등록자_ID',
+  `REGIST_NM` varchar(50) DEFAULT NULL COMMENT '등록자_명',
+  `REGIST_DE` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록_일자',
+  PRIMARY KEY (`SQ`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='만족도 설문조사 테이블'
+
+
+그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+- Validator 멍칭 : kr.or.ifac.modules.portal.survey.service.impl.SurveyManageMapper
+
+
+-- 3작업 명령 : List.jsp --
+
+위에서 생성한 java 소스를 기반으로 List.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'List.jsp 패턴' 과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/club/PortalClubList.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성해줘
+- List.jsp 명칭 : PortalSurveyList.jsp
+
+-- 3작업 명령 Regist.jsp --
+
+위에서 생성한 java 소스를 기반으로 Regist.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'Regist.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- Regist.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/club/PortalClubInsert.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성하고 명칭과 내용을 확인할수 있또록 해줘
+- Regist.jsp 멍칭 : PortalSurveyInsert.jsp
+
+
+-- 3작업 명령 Upt.jsp --
+
+위에서 생성한 java 소스를 기반으로 Upt.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'Upt.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+
+- Upt.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/club/PortalClubSelectUpdt.jsp
+
+그리고, 생성할 소스는 아래 '명칭'을 꼭 붙여서 생성하고 명칭과 내용을 확인할수 있또록 해줘
+- Upt.jsp 명칭 : PortalSurveySelectUpdt.jsp
+
+
+
+
+

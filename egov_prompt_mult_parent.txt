@@ -1,0 +1,77 @@
+아래 'DDL'과 'DDL의 관계'를 기반으로 `TB_CRAWLING_SUPPORT`를 지원하는 SQL_Mapper, Master, MasterVO, Mapper, Serviceimpl, Service, Controller, Validator 를 만들어줘.
+단 아래 Github에 정의한 'SQL_Mapper 패턴', 'Master 패턴', 'MasterVO 패턴', 'Mapper 패턴', 'Serviceimpl 패턴', 'Service 패턴', 'Controller를 패턴', 'Validator 패턴' 과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- SQL_Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/mapper/survey/SurveyMaster_SQL_mysql.xml
+- Master 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/SurveyMaster.java
+- MasterVO 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/SurveyMasterVO.java
+- Mapper 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/impl/SurveyManageMapper.java
+- Serviceimpl 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/impl/SurveyManageServiceImpl.java
+- Service 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/service/SurveyManageService.java
+- Controller 패턴 : https://github.com/lee47039853/template/blob/main/egov/java/survey/web/SurveyManageController.java
+- Validator 패턴 : https://github.com/lee47039853/template/blob/main/egov/validator/survey/PortalSurveyManage.xml
+
+
+그리고, 생성할 소스는 아래 '명칭'을 준용해줘
+- SQL_Mapper 명칭 : CrawlingSupportMaster_SQL_mysql.xml
+- Master 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportMasterVO
+- Mapper 멍칭 : kr.or.ifac.modules.portal.club.service.impl.CrawlingSupportManageMapper
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.club.service.impl.CrawlingSupportManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.club.service.web.CrawlingSupportManageController.java
+- Validator 명칭 : PortalCrawlingSupportManage.xml
+
+그리고  SQL_Mapper 생성시 아래 조건이 반영되어야 함
+- `TB_CRAWLING_SUPPORT`의 '등록날짜' 는 현재날자를 입력되어야 함.
+- `TB_CRAWLING_SUPPORT`의 List 조회시 `TB_CRAWLING_SUPPORT_ATT`의 `SQ` 숫자를 '파일수' 항목으로 조회함.
+
+그리고  Master와 MasterVO 생성시 아래 조건이 반영되어야 함
+- `TB_CRAWLING_SUPPORT`를 기반으로 생성함 
+- 'TB_CRAWLING_SUPPORT_ATT`의 `SQ` 숫자를 '파일수' 항목으로 추가함
+
+그리고, Validator 생성시 아래 조건이 반영되어야 함
+- `TB_CRAWLING_SUPPORT`의 '연번', '소개'는 검증항목에서 제외되어야 함.
+- 아래 한글이 저장되는 컬럼에 대해서는 maxlength를 컬럼길이의 3분의 1로 설정해줘
+- 한글이 저장되는 컬럼 : `TITLE`, `WRITER`
+
+
+- DDL -
+
+CREATE TABLE `TB_CRAWLING_SUPPORT` (
+  `SQ` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '연번',
+  `SOURCE` varchar(15) NOT NULL COMMENT '사이트 유형(공통코드)',
+  `CONTENTS_KEY` varchar(200) NOT NULL COMMENT '컨텐츠 키값',
+  `LINK_URL` varchar(300) DEFAULT NULL COMMENT '링크 url',
+  `TITLE` varchar(100) NOT NULL COMMENT '프로그램명',
+  `WRITER` varchar(100) DEFAULT NULL COMMENT '대상',
+  `CONTENTS` mediumtext DEFAULT NULL COMMENT '소개',
+  `SHOW_YN` enum('Y','N') NOT NULL DEFAULT 'N' COMMENT '노출여부',
+  `REG_DATE` datetime NOT NULL COMMENT '등록날짜',
+  `REQUEST_ST_DATE` varchar(20) DEFAULT NULL COMMENT '신청 시작 날짜',
+  `REQUEST_ST_TIME` varchar(5) DEFAULT NULL COMMENT '신청 시작 시간',
+  `REQUEST_ED_DATE` varchar(20) DEFAULT NULL COMMENT '신청 종료 날짜',
+  `REQUEST_ED_TIME` varchar(5) DEFAULT NULL COMMENT '신청 종료 시간',
+  `REF` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '조회수',
+  `SUP_TYPE_LIST` varchar(200) DEFAULT NULL COMMENT '지원 유형',
+  `SUP_TARGET_LIST` varchar(200) DEFAULT NULL COMMENT '지원 대상',
+  `SUP_GENRE_LIST` varchar(200) DEFAULT NULL COMMENT '지원 장르',
+  `SUP_GUNGU_LIST` varchar(200) DEFAULT NULL COMMENT '지원 지역(군구)',
+  PRIMARY KEY (`SQ`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=360 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='지원사업'
+
+CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
+  `SQ` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '연번',
+  `SUPPORT_SQ` int(10) unsigned NOT NULL COMMENT '지원사업 연번',
+  `FILE_NAME` varchar(200) NOT NULL COMMENT '파일 이름',
+  `FILE_LINK` varchar(600) DEFAULT NULL COMMENT '파일 링크',
+  `REG_DATE` datetime NOT NULL COMMENT '등록날짜',
+  PRIMARY KEY (`SQ`) USING BTREE
+) ENGINE=Aria AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci PAGE_CHECKSUM=1 COMMENT='지원사업 첨부파일'
+
+- DDL의 관계 -
+`TB_CRAWLING_SUPPORT` 와 `TB_CRAWLING_SUPPORT_ATT` 는 1 : N 관계를 가짐
+`TB_CRAWLING_SUPPORT_ATT` 의 `SUPPORT_SQ` 는 `TB_CRAWLING_SUPPORT` 의  `SQ` 를 참조함.
+
+
+
+

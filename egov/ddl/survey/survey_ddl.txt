@@ -1,0 +1,12 @@
+CREATE TABLE `TB_SURVEY` (
+  `SQ` int(11) NOT NULL AUTO_INCREMENT COMMENT '만족도_시퀀스',
+  `PAGE_URL` varchar(500) NOT NULL COMMENT '작성_페이지_URL',
+  `MENU_SN` char(14) NOT NULL COMMENT '메뉴_일련번호',
+  `RESPONSE_CD` varchar(10) NOT NULL COMMENT '만족도_응답_코드',
+  `RESPONSE_CN` text NOT NULL COMMENT '만족도_설문_내용',
+  `REGIST_IP` varchar(20) NOT NULL COMMENT '등록자 IP',
+  `REGIST_ID` varchar(50) DEFAULT NULL COMMENT '등록자_ID',
+  `REGIST_NM` varchar(50) DEFAULT NULL COMMENT '등록자_명',
+  `REGIST_DE` datetime NOT NULL DEFAULT current_timestamp() COMMENT '등록_일자',
+  PRIMARY KEY (`SQ`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='만족도 설문조사 테이블'
