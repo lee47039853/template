@@ -31,8 +31,6 @@
 
 그리고, Validator 생성시 아래 조건이 반영되어야 함
 - `TB_CRAWLING_SUPPORT`의 '연번', '소개'는 검증항목에서 제외되어야 함.
-- 아래 한글이 저장되는 컬럼에 대해서는 maxlength를 컬럼길이의 3분의 1로 설정해줘
-- 한글이 저장되는 컬럼 : `TITLE`, `WRITER`
 
 
 - DDL -
