@@ -56,13 +56,11 @@ public class ClubManageController {
 
         // 메인화면에서 넘어온 경우 메뉴 갱신을 위해 추가
         request.getSession().setAttribute("baseMenuNo", "4000000");
-        setPagination(clubMasterVO);
-
-        Map<String, Object> map = clubManageService.selectClubList(clubMasterVO);
-        int totCnt = clubManageService.selectClubListTotCnt(clubMasterVO);
+        
+    	clubMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
+    	clubMasterVO.setPageSize(propertyService.getInt("pageSize"));
 
         PaginationInfo paginationInfo = new PaginationInfo();
-        paginationInfo.setTotalRecordCount(totCnt);
         paginationInfo.setCurrentPageNo(clubMasterVO.getPageIndex());
         paginationInfo.setRecordCountPerPage(clubMasterVO.getPageUnit());
         paginationInfo.setPageSize(clubMasterVO.getPageSize());
@@ -70,6 +68,10 @@ public class ClubManageController {
         clubMasterVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
         clubMasterVO.setLastIndex(paginationInfo.getLastRecordIndex());
         clubMasterVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+        
+        Map<String, Object> map = clubManageService.selectClubList(clubMasterVO);
+        int totCnt = clubManageService.selectClubListTotCnt(clubMasterVO);
+        paginationInfo.setTotalRecordCount(totCnt);
 
         model.addAttribute("clubGenreCode_result", getCommonCodeDetails("COM002"));
         model.addAttribute("resultList", map.get("resultList"));
@@ -181,14 +183,6 @@ public class ClubManageController {
         ComDefaultCodeVO vo = new ComDefaultCodeVO();
         vo.setCodeId(codeId);
         return cmmUseService.selectCmmCodeDetail(vo);
-    }
-
-    /**
-     * 페이지 정보를 설정한다.
-     */
-    private void setPagination(ClubMasterVO clubMasterVO) {
-    	clubMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
-    	clubMasterVO.setPageSize(propertyService.getInt("pageSize"));
     }
 
 

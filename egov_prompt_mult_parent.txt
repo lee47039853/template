@@ -75,3 +75,29 @@ CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
 
 
 
+1.위에서 생성한 java 소스를 기반으로 List.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'List.jsp 패턴' 과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveyList.jsp
+그리고, 아래의 검색조건과 검색결과가 반뎡되어야햠.
+- 검색조건 순서 : '프로그램명', '대상', '노출여부'
+- 검색결과 순서 : '번호', 체크박스, '프로그램명', '노출여부', '등록날짜', '지원 유형', '지원 장르', '지원 지역(군구)'
+
+
+2.위에서 생성한 java 소스를 기반으로 Insert.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 'nsert.jsp 패턴'과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- nsert.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveyInsert.jsp
+그리고 야래의 CKEDITOR 적용항목과 임력제외항목이 반영되어야함.
+- CKEDITOR 적용항목 : '소개'
+- 입력제외항목 : '연번', '등록날짜'
+
+
+3.위에서 생성한 java 소스를 기반으로 Updt.jsp 화면을 만들어줘.
+단 아래 Github에 정의한 Updt.jsp과 유사한 모습으로 만들어줘.
+각 패턴의 Github 위치는 아래와 같음.
+- Updt.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveySelectUpdt.jsp
+그리고 야래의 CKEDITOR 적용항목과 수정제외항목이 반영되어야함.
+- CKEDITOR 적용항목 : '소개'
+- 입력제외항목 : '연번', '등록날짜'
+

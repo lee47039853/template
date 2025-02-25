@@ -52,19 +52,23 @@ public class TeacherManageController {
         if (!isAuthenticated(model)) return "uat/uia/EgovLoginUsr";
 
         request.getSession().setAttribute("baseMenuNo", "4000000");
-        setPagination(teacherMasterVO);
 
-        Map<String, Object> map = teacherManageService.selectTeacherList(teacherMasterVO);
-        int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+        teacherMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
+        teacherMasterVO.setPageSize(propertyService.getInt("pageSize"));
 
         PaginationInfo paginationInfo = new PaginationInfo();
         paginationInfo.setTotalRecordCount(totCnt);
         paginationInfo.setCurrentPageNo(teacherMasterVO.getPageIndex());
         paginationInfo.setRecordCountPerPage(teacherMasterVO.getPageUnit());
         paginationInfo.setPageSize(teacherMasterVO.getPageSize());
-        teacherMasterVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+        
+		teacherMasterVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
         teacherMasterVO.setLastIndex(paginationInfo.getLastRecordIndex());
         teacherMasterVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+        Map<String, Object> map = teacherManageService.selectTeacherList(teacherMasterVO);
+        int totCnt = Integer.parseInt((String) map.get("resultCnt"));
+		paginationInfo.setTotalRecordCount(totCnt);
 
         model.addAttribute("clubCode_result", getCommonCodeDetails("COM008"));
         model.addAttribute("resultList", map.get("resultList"));
@@ -146,8 +150,4 @@ public class TeacherManageController {
         return cmmUseService.selectCmmCodeDetail(vo);
     }
 
-    private void setPagination(TeacherMasterVO teacherMasterVO) {
-        teacherMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
-        teacherMasterVO.setPageSize(propertyService.getInt("pageSize"));
-    }
 }

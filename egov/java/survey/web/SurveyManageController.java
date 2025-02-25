@@ -1,8 +1,5 @@
 package kr.or.ifac.modules.portal.survey.web;
 
-import java.util.Calendar;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import egovframework.com.cmm.ComDefaultCodeVO;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovCmmUseService;
@@ -48,13 +44,11 @@ public class SurveyManageController {
         if (!isAuthenticated(model)) return "uat/uia/EgovLoginUsr";
 
         request.getSession().setAttribute("baseMenuNo", "4000000");
-        setPagination(surveyMasterVO);
-
-        Map<String, Object> map = surveyManageService.selectSurveyList(surveyMasterVO);
-        int totCnt = surveyManageService.selectSurveyListTotCnt(surveyMasterVO);
+        
+        surveyMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
+        surveyMasterVO.setPageSize(propertyService.getInt("pageSize"));
 
         PaginationInfo paginationInfo = new PaginationInfo();
-        paginationInfo.setTotalRecordCount(totCnt);
         paginationInfo.setCurrentPageNo(surveyMasterVO.getPageIndex());
         paginationInfo.setRecordCountPerPage(surveyMasterVO.getPageUnit());
         paginationInfo.setPageSize(surveyMasterVO.getPageSize());
@@ -63,6 +57,10 @@ public class SurveyManageController {
         surveyMasterVO.setLastIndex(paginationInfo.getLastRecordIndex());
         surveyMasterVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
+        Map<String, Object> map = surveyManageService.selectSurveyList(surveyMasterVO);
+        int totCnt = surveyManageService.selectSurveyListTotCnt(surveyMasterVO);
+        paginationInfo.setTotalRecordCount(totCnt);
+        
         model.addAttribute("resultList", map.get("resultList"));
         model.addAttribute("paginationInfo", paginationInfo);
 
@@ -123,27 +121,6 @@ public class SurveyManageController {
         surveyManageService.deleteSurvey(checkedSqForDel);
         model.addAttribute("resultMsg", "success.common.delete");
         return "forward:/portal/survey/SelectSurveyList.do";
-    }
-
-    private Map<String, String> generateYearMap(int count) {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        Map<String, String> yearMap = new LinkedHashMap<>();
-        for (int i = 0; i < count; i++) {
-            int year = currentYear - i;
-            yearMap.put(String.valueOf(year), year + "년");
-        }
-        return yearMap;
-    }
-
-    private List<?> getCommonCodeDetails(String codeId) throws Exception {
-        ComDefaultCodeVO vo = new ComDefaultCodeVO();
-        vo.setCodeId(codeId);
-        return cmmUseService.selectCmmCodeDetail(vo);
-    }
-
-    private void setPagination(SurveyMasterVO surveyMasterVO) {
-        surveyMasterVO.setPageUnit(propertyService.getInt("pageUnit"));
-        surveyMasterVO.setPageSize(propertyService.getInt("pageSize"));
     }
 
     private boolean isAuthenticated(ModelMap model) {
