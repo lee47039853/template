@@ -13,12 +13,12 @@
 
 그리고, 생성할 소스는 아래 '명칭'을 준용해줘
 - SQL_Mapper 명칭 : CrawlingSupportAttMaster_SQL_mysql.xml
-- Master 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportAttMaster
-- MasterVO 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportAttMasterVO
-- Mapper 멍칭 : kr.or.ifac.modules.portal.club.service.impl.CrawlingSupportAttManageMapper
-- Serviceimpl 명칭 : kr.or.ifac.modules.portal.club.service.impl.CrawlingSupportAttManageServiceImpl.java
-- Service 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportAttManageService.java
-- Controller 명칭 : kr.or.ifac.modules.portal.club.service.web.CrawlingSupportAttManageController.java
+- Master 명칭 : kr.or.ifac.modules.portal.support.service.CrawlingSupportAttMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.support.service.CrawlingSupportAttMasterVO
+- Mapper 멍칭 : kr.or.ifac.modules.portal.support.service.impl.CrawlingSupportAttManageMapper
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.support.service.impl.CrawlingSupportAttManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.support.service.CrawlingSupportAttManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.support.service.web.CrawlingSupportAttManageController.java
 - Validator 명칭 : PortalCrawlingSupportAttManage.xml
 
 그리고  SQL_Mapper 생성시 아래 조건이 반영되어야 함

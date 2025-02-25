@@ -1,3 +1,5 @@
+-- 명령 1 --
+
 아래 'DDL'과 'DDL의 관계'를 기반으로 `TB_CRAWLING_SUPPORT`를 지원하는 SQL_Mapper, Master, MasterVO, Mapper, Serviceimpl, Service, Controller, Validator 를 만들어줘.
 단 아래 Github에 정의한 'SQL_Mapper 패턴', 'Master 패턴', 'MasterVO 패턴', 'Mapper 패턴', 'Serviceimpl 패턴', 'Service 패턴', 'Controller를 패턴', 'Validator 패턴' 과 유사한 모습으로 만들어줘.
 각 패턴의 Github 위치는 아래와 같음.
@@ -13,17 +15,22 @@
 
 그리고, 생성할 소스는 아래 '명칭'을 준용해줘
 - SQL_Mapper 명칭 : CrawlingSupportMaster_SQL_mysql.xml
-- Master 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportMaster
-- MasterVO 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportMasterVO
-- Mapper 멍칭 : kr.or.ifac.modules.portal.club.service.impl.CrawlingSupportManageMapper
-- Serviceimpl 명칭 : kr.or.ifac.modules.portal.club.service.impl.CrawlingSupportManageServiceImpl.java
-- Service 명칭 : kr.or.ifac.modules.portal.club.service.CrawlingSupportManageService.java
-- Controller 명칭 : kr.or.ifac.modules.portal.club.service.web.CrawlingSupportManageController.java
+- Master 명칭 : kr.or.ifac.modules.portal.support.service.CrawlingSupportMaster
+- MasterVO 명칭 : kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO
+- Mapper 멍칭 : kr.or.ifac.modules.portal.support.service.impl.CrawlingSupportManageMapper
+- Serviceimpl 명칭 : kr.or.ifac.modules.portal.support.service.impl.CrawlingSupportManageServiceImpl.java
+- Service 명칭 : kr.or.ifac.modules.portal.support.service.CrawlingSupportManageService.java
+- Controller 명칭 : kr.or.ifac.modules.portal.support.web.CrawlingSupportManageController.java
 - Validator 명칭 : PortalCrawlingSupportManage.xml
 
 그리고  SQL_Mapper 생성시 아래 조건이 반영되어야 함
 - `TB_CRAWLING_SUPPORT`의 '등록날짜' 는 현재날자를 입력되어야 함.
 - `TB_CRAWLING_SUPPORT`의 List 조회시 `TB_CRAWLING_SUPPORT_ATT`의 `SQ` 숫자를 '파일수' 항목으로 조회함.
+
+그리고  SQL_Mapper List 조회시 죠회조건 적용은 아래와 같음
+- searchCondition == "0" 일 경우 `TITLE`에 대해서 like 검색.
+- searchCondition == "1" 일 경우 `CONTENTS`에 대해서 like 검색.
+- searchCondition == "2" 일 경우 `SHOW_YN` 대해서 like 검색.
 
 그리고  Master와 MasterVO 생성시 아래 조건이 반영되어야 함
 - `TB_CRAWLING_SUPPORT`를 기반으로 생성함 
@@ -71,7 +78,7 @@ CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
 `TB_CRAWLING_SUPPORT_ATT` 의 `SUPPORT_SQ` 는 `TB_CRAWLING_SUPPORT` 의  `SQ` 를 참조함.
 
 
-
+-- 명령 2 --
 
 1.위에서 생성한 java 소스를 기반으로 List.jsp 화면을 만들어줘.
 단 아래 Github에 정의한 'List.jsp 패턴' 과 유사한 모습으로 만들어줘.
@@ -79,7 +86,8 @@ CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
 - List.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveyList.jsp
 그리고, 아래의 검색조건과 검색결과가 반뎡되어야햠.
 - 검색조건 순서 : '프로그램명', '대상', '노출여부'
-- 검색결과 순서 : '번호', 체크박스, '프로그램명', '노출여부', '등록날짜', '지원 유형', '지원 장르', '지원 지역(군구)'
+- 검색결과 순서 : '번호', 체크박스, '사이트 유형(공통코드)', '프로그램명', '컨텐츠 키값', '링크 url', '대상', '소개', '노출여부', '등록날짜'
+- 검색결과 처리 : '소개' 는 20자 가 넘어갈 경우 넘거가는 문자에 대해서는 ... 으로 처리해줘
 
 
 2.위에서 생성한 java 소스를 기반으로 Insert.jsp 화면을 만들어줘.
@@ -87,7 +95,7 @@ CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
 각 패턴의 Github 위치는 아래와 같음.
 - nsert.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveyInsert.jsp
 그리고 야래의 CKEDITOR 적용항목과 임력제외항목이 반영되어야함.
-- CKEDITOR 적용항목 : '소개'
+- CKEDITOR 적용항목 : 없음 (주석처리 필요)
 - 입력제외항목 : '연번', '등록날짜'
 
 
@@ -96,6 +104,10 @@ CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
 각 패턴의 Github 위치는 아래와 같음.
 - Updt.jsp 패턴 : https://github.com/lee47039853/template/blob/main/egov/jsp/survey/PortalSurveySelectUpdt.jsp
 그리고 야래의 CKEDITOR 적용항목과 수정제외항목이 반영되어야함.
-- CKEDITOR 적용항목 : '소개'
+- CKEDITOR 적용항목 : 없음 (주석처리 필요)
 - 입력제외항목 : '연번', '등록날짜'
 
+
+-- 보정 --
+1. Controller : .setRegistId(user.getId()); 필요여부 확인
+2. JSP : .do 정합성 확인

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ifac.modules.portal.support.service.impl.CrawlingSupportManageMapper">
+    
+    <select id="selectCrawlingSupportList" parameterType="kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO" resultType="kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO">
+        SELECT 
+            A.SQ, A.SOURCE, A.CONTENTS_KEY, A.LINK_URL, A.TITLE, A.WRITER, A.CONTENTS,
+            A.SHOW_YN, A.REG_DATE, A.REQUEST_ST_DATE, A.REQUEST_ST_TIME, A.REQUEST_ED_DATE, A.REQUEST_ED_TIME,
+            A.REF, A.SUP_TYPE_LIST, A.SUP_TARGET_LIST, A.SUP_GENRE_LIST, A.SUP_GUNGU_LIST,
+            (SELECT COUNT(*) FROM TB_CRAWLING_SUPPORT_ATT B WHERE B.SUPPORT_SQ = A.SQ) AS FILESU
+        FROM
+            TB_CRAWLING_SUPPORT A
+        WHERE 1=1
+        <if test='searchCondition == "0"'>
+            AND A.TITLE LIKE '%' #{searchKeyword} '%'
+        </if>
+        <if test='searchCondition == "1"'>
+            AND A.CONTENTS LIKE '%' #{searchKeyword} '%'
+        </if>
+        <if test='searchCondition == "2"'>
+            AND A.SHOW_YN LIKE '%' #{searchKeyword} '%'
+        </if>
+        ORDER BY 
+            A.SQ DESC 
+        LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+    </select>
+    
+    <select id="selectCrawlingSupportListCnt" parameterType="kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO" resultType="int">
+        SELECT COUNT(1) totcnt
+        FROM    
+            TB_CRAWLING_SUPPORT A
+        WHERE 1=1
+        <if test='searchCondition == "0"'>
+            AND A.TITLE LIKE '%' #{searchKeyword} '%'
+        </if>
+        <if test='searchCondition == "1"'>
+            AND A.CONTENTS LIKE '%' #{searchKeyword} '%'
+        </if>
+        <if test='searchCondition == "2"'>
+            AND A.SHOW_YN LIKE '%' #{searchKeyword} '%'
+        </if>    
+    </select>
+    
+    <select id="selectCrawlingSupport" resultType="kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO">
+        SELECT 
+            SQ, SOURCE, CONTENTS_KEY, LINK_URL, TITLE, WRITER, CONTENTS, 
+            SHOW_YN, REG_DATE, REQUEST_ST_DATE, REQUEST_ST_TIME, REQUEST_ED_DATE, REQUEST_ED_TIME,
+            REF, SUP_TYPE_LIST, SUP_TARGET_LIST, SUP_GENRE_LIST, SUP_GUNGU_LIST
+        FROM 
+            TB_CRAWLING_SUPPORT
+        WHERE 
+            SQ=#{sq}
+    </select>
+    
+    <delete id="deleteCrawlingSupport">
+        DELETE FROM TB_CRAWLING_SUPPORT 
+        WHERE SQ=#{sq}
+    </delete>
+    
+    <update id="updateCrawlingSupport" parameterType="kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO">
+        UPDATE 
+            TB_CRAWLING_SUPPORT 
+        SET 
+            SOURCE              = #{source}        ,
+            CONTENTS_KEY        = #{contentsKey}   ,
+            LINK_URL            = #{linkUrl}       ,
+            TITLE               = #{title}         ,
+            WRITER              = #{writer}        ,
+            CONTENTS            = #{contents}      ,
+            SHOW_YN             = #{showYn}        ,
+            REQUEST_ST_DATE     = #{requestStDate} ,
+            REQUEST_ST_TIME     = #{requestStTime} ,
+            REQUEST_ED_DATE     = #{requestEdDate} ,
+            REQUEST_ED_TIME     = #{requestEdTime} ,
+            REF                 = #{ref}           ,
+            SUP_TYPE_LIST       = #{supTypeList}   ,
+            SUP_TARGET_LIST     = #{supTargetList} ,
+            SUP_GENRE_LIST      = #{supGenreList}  ,
+            SUP_GUNGU_LIST      = #{supGunguList}  ,
+            REG_DATE            = NOW()            
+        WHERE 
+            SQ = #{sq}
+    </update>
+    
+    <insert id="insertCrawlingSupport" parameterType="kr.or.ifac.modules.portal.support.service.CrawlingSupportMasterVO">
+        INSERT INTO TB_CRAWLING_SUPPORT 
+            (   
+                SOURCE, CONTENTS_KEY, LINK_URL, TITLE, WRITER, CONTENTS, 
+                SHOW_YN, REG_DATE, REQUEST_ST_DATE, REQUEST_ST_TIME, REQUEST_ED_DATE, REQUEST_ED_TIME,
+                REF, SUP_TYPE_LIST, SUP_TARGET_LIST, SUP_GENRE_LIST, SUP_GUNGU_LIST
+            )
+        VALUES (
+               #{source}          ,
+               #{contentsKey}     ,
+               #{linkUrl}         ,
+               #{title}           ,
+               #{writer}          ,
+               #{contents}        ,
+               #{showYn}          ,
+               NOW()              ,
+               #{requestStDate}   ,
+               #{requestStTime}   ,
+               #{requestEdDate}   ,
+               #{requestEdTime}   ,
+               #{ref}             ,
+               #{supTypeList}     ,
+               #{supTargetList}   ,
+               #{supGenreList}    ,
+               #{supGunguList}    
+        )
+    </insert>
+
+</mapper>
