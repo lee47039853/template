@@ -36,6 +36,9 @@
 - `TB_CRAWLING_SUPPORT`를 기반으로 생성함 
 - 'TB_CRAWLING_SUPPORT_ATT`의 `SQ` 숫자를 '파일수' 항목으로 추가함
 
+그리고, Controller 생성시 아래 조건이 반영되어야 함
+- MasterVO에 registId 속성이 없는 경우 LoginVO 를 추출하는 코드와 MasterVO의 setRegistId 함수 호출 부분은 생성하지 말아야함.
+
 그리고, Validator 생성시 아래 조건이 반영되어야 함
 - `TB_CRAWLING_SUPPORT`의 '연번', '소개'는 검증항목에서 제외되어야 함.
 

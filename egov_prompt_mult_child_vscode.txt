@@ -29,12 +29,8 @@
 - `TB_CRAWLING_SUPPORT_ATT`를 기반으로 생성함 
 - `TB_CRAWLING_SUPPORT`의 `TITLE`, `WRITER` 항목을 추가함
 
-그리고, Controller 생성시 아래 조건이 반영되어야 함
-- MasterVO에 registId 속성이 없는 경우 LoginVO 를 추출하는 코드와 MasterVO의 setRegistId 함수 호출 부분은 생성하지 말아야함.
-
 그리고, Validator 생성시 아래 조건이 반영되어야 함
-- `TB_CRAWLING_SUPPORT_ATT`의 '연번', '등록날짜' 은 검증항목에서 제외되어야 함.
-
+- `TB_CRAWLING_SUPPORT_ATT`의 '연번'은 검증항목에서 제외되어야 함.
 
 - DDL -
 
@@ -72,7 +68,4 @@ CREATE TABLE `TB_CRAWLING_SUPPORT_ATT` (
 - DDL의 관계 -
 `TB_CRAWLING_SUPPORT` 와 `TB_CRAWLING_SUPPORT_ATT` 는 1 : N 관계를 가짐
 `TB_CRAWLING_SUPPORT_ATT` 의 `SUPPORT_SQ` 는 `TB_CRAWLING_SUPPORT` 의  `SQ` 를 참조함.
-
-
-
 
